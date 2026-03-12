@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class PalindromeCheckerApp {
+public class UseCase7PalindromeCheckerApp {
 
     public static void main(String[] args) {
 
@@ -11,6 +11,10 @@ public class PalindromeCheckerApp {
 
         input = input.replaceAll("\\s+", "").toLowerCase();
 
+        Deque<Character> deque = new ArrayDeque<>();
+
+        for (int i = 0; i < input.length(); i++) {
+            deque.addLast(input.charAt(i));
         Queue<Character> queue = new LinkedList<>();
         Stack<Character> stack = new Stack<>();
 
@@ -22,6 +26,11 @@ public class PalindromeCheckerApp {
 
         boolean isPalindrome = true;
 
+        while (deque.size() > 1) {
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
+
+            if (first != last) {
         while (!queue.isEmpty()) {
             if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
