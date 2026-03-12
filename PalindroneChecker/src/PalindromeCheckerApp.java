@@ -15,6 +15,13 @@ public class UseCase7PalindromeCheckerApp {
 
         for (int i = 0; i < input.length(); i++) {
             deque.addLast(input.charAt(i));
+        Queue<Character> queue = new LinkedList<>();
+        Stack<Character> stack = new Stack<>();
+
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            queue.add(ch);
+            stack.push(ch);
         }
 
         boolean isPalindrome = true;
@@ -24,6 +31,8 @@ public class UseCase7PalindromeCheckerApp {
             char last = deque.removeLast();
 
             if (first != last) {
+        while (!queue.isEmpty()) {
+            if (!queue.remove().equals(stack.pop())) {
                 isPalindrome = false;
                 break;
             }
