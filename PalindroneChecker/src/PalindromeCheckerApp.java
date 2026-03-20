@@ -1,12 +1,8 @@
 import java.util.*;
 
-interface PalindromeStrategy {
-    boolean check(String input);
-}
+public class UseCase13PalindromeCheckerApp {
 
-class StackStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+    public static boolean stackCheck(String input) {
 
         String s = input.replaceAll("\\s+", "").toLowerCase();
 
@@ -24,11 +20,8 @@ class StackStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-class DequeStrategy implements PalindromeStrategy {
-
-    public boolean check(String input) {
+    public static boolean dequeCheck(String input) {
 
         String s = input.replaceAll("\\s+", "").toLowerCase();
 
@@ -46,9 +39,19 @@ class DequeStrategy implements PalindromeStrategy {
 
         return true;
     }
-}
 
-public class UseCase12PalindromeCheckerApp {
+    public static boolean reverseCheck(String input) {
+
+        String s = input.replaceAll("\\s+", "").toLowerCase();
+
+        String rev = "";
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            rev += s.charAt(i);
+        }
+
+        return s.equals(rev);
+    }
 
     public static void main(String[] args) {
 
@@ -57,24 +60,26 @@ public class UseCase12PalindromeCheckerApp {
         System.out.print("Enter string: ");
         String input = sc.nextLine();
 
-        System.out.print("Choose strategy (1-Stack, 2-Deque): ");
-        int choice = sc.nextInt();
+        long start1 = System.nanoTime();
+        boolean r1 = stackCheck(input);
+        long end1 = System.nanoTime();
 
-        PalindromeStrategy strategy;
+        long start2 = System.nanoTime();
+        boolean r2 = dequeCheck(input);
+        long end2 = System.nanoTime();
 
-        if (choice == 1) {
-            strategy = new StackStrategy();
-        } else {
-            strategy = new DequeStrategy();
-        }
+        long start3 = System.nanoTime();
+        boolean r3 = reverseCheck(input);
+        long end3 = System.nanoTime();
 
-        boolean result = strategy.check(input);
+        System.out.println("Stack Result: " + r1);
+        System.out.println("Stack Time: " + (end1 - start1));
 
-        if (result) {
-            System.out.println("Palindrome");
-        } else {
-            System.out.println("Not Palindrome");
-        }
+        System.out.println("Deque Result: " + r2);
+        System.out.println("Deque Time: " + (end2 - start2));
+
+        System.out.println("Reverse Result: " + r3);
+        System.out.println("Reverse Time: " + (end3 - start3));
 
         sc.close();
     }
